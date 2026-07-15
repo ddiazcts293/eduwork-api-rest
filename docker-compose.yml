@@ -1,0 +1,28 @@
+services:
+  db:
+    image: mysql:8.0
+    restart: always
+    container_name: eduwork-v1
+    environment:
+      MYSQL_ROOT_PASSWORD: 'eduwork_ro0t_pwd'
+      MYSQL_DATABASE: db_eduwork
+      MYSQL_USER: eduwork_v1
+      MYSQL_PASSWORD: eduwork_v1
+    ports:
+      - 3306:3306
+    volumes:
+      - db-eduwork:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8081:8080
+
+volumes:
+  db-eduwork:
