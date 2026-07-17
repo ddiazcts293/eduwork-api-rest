@@ -16,3 +16,4 @@ Este es el repositorio para el proyecto del servidor API rest usando Django Rest
 2. Inicializar un nuevo entorno virtual de Python en el directorio del proyecto `python -m venv .venv`.
 3. Instalar dependencias `pip install -r requirements.txt`.
 4. Orquestar servicios con Docker `docker compose up -d`.
+6. Aplicar migraciones con `python manage.py makemigrations` y `python manage.py migrate` (usar py si se trabaja en Windows).
