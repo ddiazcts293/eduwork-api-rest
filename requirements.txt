@@ -3,3 +3,4 @@ Django==6.0.6
 djangorestframework==3.17.1
 mysqlclient==2.2.8
 sqlparse==0.5.5
+django-enum==2.4.3
