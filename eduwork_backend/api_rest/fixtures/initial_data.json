@@ -1,0 +1,853 @@
+[
+    {
+        "model": "api_rest.state",
+        "pk": 1,
+        "fields": { "name": "Baja California" }
+    },
+    {
+        "model": "api_rest.state",
+        "pk": 2,
+        "fields": { "name": "Nuevo León" }
+    },
+    {
+        "model": "api_rest.state",
+        "pk": 3,
+        "fields": { "name": "Jalisco" }
+    },
+    {
+        "model": "api_rest.state",
+        "pk": 4,
+        "fields": { "name": "CDMX" }
+    },
+    {
+        "model": "api_rest.state",
+        "pk": 5,
+        "fields": { "name": "Puebla" }
+    },
+    {
+        "model": "api_rest.state",
+        "pk": 6,
+        "fields": { "name": "Querétaro" }
+    },
+    {
+        "model": "api_rest.state",
+        "pk": 7,
+        "fields": { "name": "Yucatán" }
+    },
+    {
+        "model": "api_rest.state",
+        "pk": 8,
+        "fields": { "name": "Sonora" }
+    },
+    {
+        "model": "api_rest.state",
+        "pk": 9,
+        "fields": { "name": "Sinaloa" }
+    },
+    {
+        "model": "api_rest.state",
+        "pk": 10,
+        "fields": { "name": "Chihuahua" }
+    },
+    {
+        "model": "api_rest.state",
+        "pk": 11,
+        "fields": { "name": "Guanajuato" }
+    },
+    {
+        "model": "api_rest.state",
+        "pk": 12,
+        "fields": { "name": "San Luis Potosí" }
+    },
+    {
+        "model": "api_rest.state",
+        "pk": 13,
+        "fields": { "name": "Aguascalientes" }
+    },
+    {
+        "model": "api_rest.state",
+        "pk": 14,
+        "fields": { "name": "Coahuila" }
+    },
+    {
+        "model": "api_rest.companysector",
+        "pk": 1,
+        "fields": { "description": "Tecnología de la Información" }
+    },
+    {
+        "model": "api_rest.companysector",
+        "pk": 2,
+        "fields": { "description": "Desarrollo de Software" }
+    },
+    {
+        "model": "api_rest.companysector",
+        "pk": 3,
+        "fields": { "description": "Finanzas y Banca" }
+    },
+    {
+        "model": "api_rest.companysector",
+        "pk": 4,
+        "fields": { "description": "Manufactura y Maquila" }
+    },
+    {
+        "model": "api_rest.companysector",
+        "pk": 5,
+        "fields": { "description": "Salud y Medicina" }
+    },
+    {
+        "model": "api_rest.companysector",
+        "pk": 6,
+        "fields": { "description": "Educación" }
+    },
+    {
+        "model": "api_rest.companysector",
+        "pk": 7,
+        "fields": { "description": "Comercio Minorista" }
+    },
+    {
+        "model": "api_rest.companysector",
+        "pk": 8,
+        "fields": { "description": "Logística y Transporte" }
+    },
+    {
+        "model": "api_rest.companysector",
+        "pk": 9,
+        "fields": { "description": "Turismo y Hospitalidad" }
+    },
+    {
+        "model": "api_rest.companysector",
+        "pk": 10,
+        "fields": { "description": "Marketing y Publicidad" }
+    },
+    {
+        "model": "api_rest.companysector",
+        "pk": 11,
+        "fields": { "description": "Construcción" }
+    },
+    {
+        "model": "api_rest.companysector",
+        "pk": 12,
+        "fields": { "description": "Telecomunicaciones" }
+    },
+    {
+        "model": "api_rest.companysector",
+        "pk": 13,
+        "fields": { "description": "Bienes Raíces" }
+    },
+    {
+        "model": "api_rest.companysector",
+        "pk": 14,
+        "fields": { "description": "Agricultura" }
+    },
+    {
+        "model": "api_rest.companysector",
+        "pk": 15,
+        "fields": { "description": "Energía" }
+    },
+    {
+        "model": "api_rest.companysector",
+        "pk": 16,
+        "fields": { "description": "Entretenimiento" }
+    },
+    {
+        "model": "api_rest.companysector",
+        "pk": 17,
+        "fields": { "description": "Legal" }
+    },
+    {
+        "model": "api_rest.companysector",
+        "pk": 18,
+        "fields": { "description": "Consultoría Empresarial" }
+    },
+    {
+        "model": "api_rest.companysector",
+        "pk": 19,
+        "fields": { "description": "Recursos Humanos" }
+    },
+    {
+        "model": "api_rest.companysector",
+        "pk": 20,
+        "fields": { "description": "Diseño Gráfico y Multimedia" }
+    },
+    {
+        "model": "api_rest.jobtype",
+        "pk": 1,
+        "fields": { "description": "Tiempo Completo" }
+    },
+    {
+        "model": "api_rest.jobtype",
+        "pk": 2,
+        "fields": { "description": "Medio Tiempo" }
+    },
+    {
+        "model": "api_rest.jobtype",
+        "pk": 3,
+        "fields": { "description": "Prácticas Profesional" }
+    },
+    {
+        "model": "api_rest.jobtype",
+        "pk": 4,
+        "fields": { "description": "Servicio Social" }
+    },
+    {
+        "model": "api_rest.jobtype",
+        "pk": 5,
+        "fields": { "description": "Freelance / Proyecto" }
+    },
+    {
+        "model": "api_rest.jobtype",
+        "pk": 6,
+        "fields": { "description": "Contrato Temporal" }
+    },
+    {
+        "model": "api_rest.jobtype",
+        "pk": 7,
+        "fields": { "description": "Híbrido" }
+    },
+    {
+        "model": "api_rest.jobtype",
+        "pk": 8,
+        "fields": { "description": "Beca Estudiantil" }
+    },
+    {
+        "model": "api_rest.degree",
+        "pk": 1,
+        "fields": {
+            "name": "Ingeniería en Sistemas",
+            "type": "E"
+        }
+    },
+    {
+        "model": "api_rest.degree",
+        "pk": 2,
+        "fields": {
+            "name": "Licenciatura en Administración",
+            "type": "B"
+        }
+    },
+    {
+        "model": "api_rest.degree",
+        "pk": 3,
+        "fields": {
+            "name": "Ingeniería Industrial",
+            "type": "E"
+        }
+    },
+    {
+        "model": "api_rest.degree",
+        "pk": 4,
+        "fields": {
+            "name": "Licenciatura en Derecho",
+            "type": "B"
+        }
+    },
+    {
+        "model": "api_rest.degree",
+        "pk": 5,
+        "fields": {
+            "name": "Licenciatura en Contaduría",
+            "type": "B"
+        }
+    },
+    {
+        "model": "api_rest.degree",
+        "pk": 6,
+        "fields": {
+            "name": "Licenciatura en Mercadotecnia",
+            "type": "B"
+        }
+    },
+    {
+        "model": "api_rest.degree",
+        "pk": 7,
+        "fields": {
+            "name": "Ingeniería Mecatrónica",
+            "type": "E"
+        }
+    },
+    {
+        "model": "api_rest.degree",
+        "pk": 8,
+        "fields": {
+            "name": "Licenciatura en Psicología",
+            "type": "B"
+        }
+    },
+    {
+        "model": "api_rest.degree",
+        "pk": 9,
+        "fields": {
+            "name": "Licenciatura en Diseño Gráfico",
+            "type": "B"
+        }
+    },
+    {
+        "model": "api_rest.degree",
+        "pk": 10,
+        "fields": {
+            "name": "Ingeniería Civil",
+            "type": "E"
+        }
+    },
+    {
+        "model": "api_rest.degree",
+        "pk": 11,
+        "fields": {
+            "name": "Licenciatura en Enfermería",
+            "type": "B"
+        }
+    },
+    {
+        "model": "api_rest.degree",
+        "pk": 12,
+        "fields": {
+            "name": "Licenciatura en Medicina",
+            "type": "B"
+        }
+    },
+    {
+        "model": "api_rest.degree",
+        "pk": 13,
+        "fields": {
+            "name": "Licenciatura en Comunicación",
+            "type": "B"
+        }
+    },
+    {
+        "model": "api_rest.degree",
+        "pk": 14,
+        "fields": {
+            "name": "Ingeniería Electrónica",
+            "type": "E"
+        }
+    },
+    {
+        "model": "api_rest.degree",
+        "pk": 15,
+        "fields": {
+            "name": "Licenciatura en Economía",
+            "type": "B"
+        }
+    },
+    {
+        "model": "api_rest.degree",
+        "pk": 16,
+        "fields": {
+            "name": "Maestría en Negocios (MBA)",
+            "type": "P"
+        }
+    },
+    {
+        "model": "api_rest.degree",
+        "pk": 17,
+        "fields": {
+            "name": "Maestría en Ciencia de Datos",
+            "type": "P"
+        }
+    },
+    {
+        "model": "api_rest.degree",
+        "pk": 18,
+        "fields": {
+            "name": "Técnico Superior en Informática",
+            "type": "T"
+        }
+    },
+    {
+        "model": "api_rest.degree",
+        "pk": 19,
+        "fields": {
+            "name": "Licenciatura en Negocios Int.",
+            "type": "B"
+        }
+    },
+    {
+        "model": "api_rest.degree",
+        "pk": 20,
+        "fields": {
+            "name": "Ingeniería en Logística",
+            "type": "E"
+        }
+    },
+
+    {
+        "model": "api_rest.skill",
+        "pk": 1,
+        "fields": {
+            "name": "Python",
+            "type": "H"
+        }
+    },
+    {
+        "model": "api_rest.skill",
+        "pk": 2,
+        "fields": {
+            "name": "SQL",
+            "type": "H"
+        }
+    },
+    {
+        "model": "api_rest.skill",
+        "pk": 3,
+        "fields": {
+            "name": "JavaScript",
+            "type": "H"
+        }
+    },
+    {
+        "model": "api_rest.skill",
+        "pk": 4,
+        "fields": {
+            "name": "Java",
+            "type": "H"
+        }
+    },
+    {
+        "model": "api_rest.skill",
+        "pk": 5,
+        "fields": {
+            "name": "C#",
+            "type": "H"
+        }
+    },
+    {
+        "model": "api_rest.skill",
+        "pk": 6,
+        "fields": {
+            "name": "Excel Avanzado",
+            "type": "H"
+        }
+    },
+    {
+        "model": "api_rest.skill",
+        "pk": 7,
+        "fields": {
+            "name": "Análisis de Datos",
+            "type": "H"
+        }
+    },
+    {
+        "model": "api_rest.skill",
+        "pk": 8,
+        "fields": {
+            "name": "Diseño UX/UI",
+            "type": "H"
+        }
+    },
+    {
+        "model": "api_rest.skill",
+        "pk": 9,
+        "fields": {
+            "name": "Gestión de Proyectos",
+            "type": "H"
+        }
+    },
+    {
+        "model": "api_rest.skill",
+        "pk": 10,
+        "fields": {
+            "name": "Marketing Digital",
+            "type": "H"
+        }
+    },
+    {
+        "model": "api_rest.skill",
+        "pk": 11,
+        "fields": {
+            "name": "Trabajo en Equipo",
+            "type": "S"
+        }
+    },
+    {
+        "model": "api_rest.skill",
+        "pk": 12,
+        "fields": {
+            "name": "Comunicación Efectiva",
+            "type": "S"
+        }
+    },
+    {
+        "model": "api_rest.skill",
+        "pk": 13,
+        "fields": {
+            "name": "Liderazgo",
+            "type": "S"
+        }
+    },
+    {
+        "model": "api_rest.skill",
+        "pk": 14,
+        "fields": {
+            "name": "Resolución de Problemas",
+            "type": "S"
+        }
+    },
+    {
+        "model": "api_rest.skill",
+        "pk": 15,
+        "fields": {
+            "name": "Pensamiento Crítico",
+            "type": "S"
+        }
+    },
+    {
+        "model": "api_rest.skill",
+        "pk": 16,
+        "fields": {
+            "name": "Adaptabilidad",
+            "type": "S"
+        }
+    },
+    {
+        "model": "api_rest.skill",
+        "pk": 17,
+        "fields": {
+            "name": "Inglés Avanzado",
+            "type": "L"
+        }
+    },
+    {
+        "model": "api_rest.skill",
+        "pk": 18,
+        "fields": {
+            "name": "Francés Básico",
+            "type": "L"
+        }
+    },
+    {
+        "model": "api_rest.skill",
+        "pk": 19,
+        "fields": {
+            "name": "Atención al Cliente",
+            "type": "S"
+        }
+    },
+    {
+        "model": "api_rest.skill",
+        "pk": 20,
+        "fields": {
+            "name": "Redacción Comercial",
+            "type": "H"
+        }
+    },
+    {
+        "model": "api_rest.city",
+        "pk": 1,
+        "fields": {
+            "name": "Tijuana",
+            "state_id": 1
+        }
+    },
+    {
+        "model": "api_rest.city",
+        "pk": 2,
+        "fields": {
+            "name": "Mexicali",
+            "state_id": 1
+        }
+    },
+    {
+        "model": "api_rest.city",
+        "pk": 3,
+        "fields": {
+            "name": "Ensenada",
+            "state_id": 1
+        }
+    },
+    {
+        "model": "api_rest.city",
+        "pk": 4,
+        "fields": {
+            "name": "Tecate",
+            "state_id": 1
+        }
+    },
+    {
+        "model": "api_rest.city",
+        "pk": 5,
+        "fields": {
+            "name": "Playas de Rosarito",
+            "state_id": 1
+        }
+    },
+    {
+        "model": "api_rest.city",
+        "pk": 6,
+        "fields": {
+            "name": "Monterrey",
+            "state_id": 2
+        }
+    },
+    {
+        "model": "api_rest.city",
+        "pk": 7,
+        "fields": {
+            "name": "Guadalajara",
+            "state_id": 3
+        }
+    },
+    {
+        "model": "api_rest.city",
+        "pk": 8,
+        "fields": {
+            "name": "Zapopan",
+            "state_id": 3
+        }
+    },
+    {
+        "model": "api_rest.city",
+        "pk": 9,
+        "fields": {
+            "name": "Ciudad de México",
+            "state_id": 4
+        }
+    },
+    {
+        "model": "api_rest.city",
+        "pk": 10,
+        "fields": {
+            "name": "Puebla",
+            "state_id": 5
+        }
+    },
+    {
+        "model": "api_rest.city",
+        "pk": 11,
+        "fields": {
+            "name": "Querétaro",
+            "state_id": 6
+        }
+    },
+    {
+        "model": "api_rest.city",
+        "pk": 12,
+        "fields": {
+            "name": "Mérida",
+            "state_id": 7
+        }
+    },
+    {
+        "model": "api_rest.city",
+        "pk": 13,
+        "fields": {
+            "name": "Hermosillo",
+            "state_id": 8
+        }
+    },
+    {
+        "model": "api_rest.city",
+        "pk": 14,
+        "fields": {
+            "name": "Culiacán",
+            "state_id": 9
+        }
+    },
+    {
+        "model": "api_rest.city",
+        "pk": 15,
+        "fields": {
+            "name": "Chihuahua",
+            "state_id": 10
+        }
+    },
+    {
+        "model": "api_rest.city",
+        "pk": 16,
+        "fields": {
+            "name": "Ciudad Juárez",
+            "state_id": 10
+        }
+    },
+    {
+        "model": "api_rest.city",
+        "pk": 17,
+        "fields": {
+            "name": "León",
+            "state_id": 11
+        }
+    },
+    {
+        "model": "api_rest.city",
+        "pk": 18,
+        "fields": {
+            "name": "San Luis Potosí",
+            "state_id": 12
+        }
+    },
+    {
+        "model": "api_rest.city",
+        "pk": 19,
+        "fields": {
+            "name": "Aguascalientes",
+            "state_id": 13
+        }
+    },
+    {
+        "model": "api_rest.city",
+        "pk": 20,
+        "fields": {
+            "name": "Saltillo",
+            "state_id": 14
+        }
+    },
+    {
+        "model": "api_rest.university",
+        "pk": 1,
+        "fields": {
+            "name": "Universidad Autónoma de Baja California (UABC)",
+            "city_id": 1
+        }
+    },
+    {
+        "model": "api_rest.university",
+        "pk": 2,
+        "fields": {
+            "name": "CETYS Universidad",
+            "city_id": 1
+        }
+    },
+    {
+        "model": "api_rest.university",
+        "pk": 3,
+        "fields": {
+            "name": "Instituto Tecnológico de Tijuana (ITT)",
+            "city_id": 1
+        }
+    },
+    {
+        "model": "api_rest.university",
+        "pk": 4,
+        "fields": {
+            "name": "Universidad Tecnológica de Tijuana (UTT)",
+            "city_id": 1
+        }
+    },
+    {
+        "model": "api_rest.university",
+        "pk": 5,
+        "fields": {
+            "name": "Universidad Xochicalco",
+            "city_id": 1
+        }
+    },
+    {
+        "model": "api_rest.university",
+        "pk": 6,
+        "fields": {
+            "name": "Universidad Iberoamericana (Tijuana)",
+            "city_id": 1
+        }
+    },
+    {
+        "model": "api_rest.university",
+        "pk": 7,
+        "fields": {
+            "name": "Instituto Tecnológico de Mexicali",
+            "city_id": 2
+        }
+    },
+    {
+        "model": "api_rest.university",
+        "pk": 8,
+        "fields": {
+            "name": "Universidad Politécnica de Baja California",
+            "city_id": 2
+        }
+    },
+    {
+        "model": "api_rest.university",
+        "pk": 9,
+        "fields": {
+            "name": "UNAM",
+            "city_id": 9
+        }
+    },
+    {
+        "model": "api_rest.university",
+        "pk": 10,
+        "fields": {
+            "name": "Instituto Politécnico Nacional (IPN)",
+            "city_id": 9
+        }
+    },
+    {
+        "model": "api_rest.university",
+        "pk": 11,
+        "fields": {
+            "name": "Tecnológico de Monterrey (ITESM)",
+            "city_id": 6
+        }
+    },
+    {
+        "model": "api_rest.university",
+        "pk": 12,
+        "fields": {
+            "name": "Universidad de Guadalajara (UDG)",
+            "city_id": 7
+        }
+    },
+    {
+        "model": "api_rest.university",
+        "pk": 13,
+        "fields": {
+            "name": "Universidad Autónoma de Nuevo León (UANL)",
+            "city_id": 6
+        }
+    },
+    {
+        "model": "api_rest.university",
+        "pk": 14,
+        "fields": {
+            "name": "Universidad Autónoma Metropolitana (UAM)",
+            "city_id": 9
+        }
+    },
+    {
+        "model": "api_rest.university",
+        "pk": 15,
+        "fields": {
+            "name": "Instituto Tecnológico Autónomo de México (ITAM)",
+            "city_id": 9
+        }
+    },
+    {
+        "model": "api_rest.university",
+        "pk": 16,
+        "fields": {
+            "name": "Universidad Anáhuac",
+            "city_id": 9
+        }
+    },
+    {
+        "model": "api_rest.university",
+        "pk": 17,
+        "fields": {
+            "name": "Universidad de las Américas Puebla (UDLAP)",
+            "city_id": 10
+        }
+    },
+    {
+        "model": "api_rest.university",
+        "pk": 18,
+        "fields": {
+            "name": "Benemérita Universidad Autónoma de Puebla",
+            "city_id": 10
+        }
+    },
+    {
+        "model": "api_rest.university",
+        "pk": 19,
+        "fields": {
+            "name": "Universidad de Sonora (UNISON)",
+            "city_id": 13
+        }
+    },
+    {
+        "model": "api_rest.university",
+        "pk": 20,
+        "fields": {
+            "name": "Universidad Autónoma de Sinaloa (UAS)",
+            "city_id": 14
+        }
+    }
+]
