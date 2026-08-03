@@ -1,5 +1,6 @@
 from django.db import models
 from django_enum import EnumField
+from users.models import EduWorkUser
 
 # Create your models here.
 
@@ -59,6 +60,7 @@ class StudentProfile(models.Model):
         FEMALE = 'F', 'FEMALE'
         NON_BINARY = 'N', 'NON_BINARY'
 
+    user = models.OneToOneField(EduWorkUser, on_delete=models.CASCADE, related_name='student_profile')
     first_name = models.CharField(max_length=60, null=False, blank=False)
     last_name = models.CharField(max_length=60, null=False, blank=False)
     biografy = models.TextField(max_length=500, null=True, blank=True)
@@ -73,6 +75,7 @@ class StudentProfile(models.Model):
             return f"{self.first_name} {self.last_name}"
 
 class CompanyProfile(models.Model):
+    user = models.OneToOneField(EduWorkUser, on_delete=models.CASCADE, related_name='company_profile')
     name = models.CharField(max_length=60, null=False, blank=False)
     biography = models.TextField(max_length=500, null=True, blank=True)
     sector = models.ForeignKey(CompanySector, on_delete=models.CASCADE, null=False, blank=False)
