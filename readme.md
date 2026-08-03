@@ -2,6 +2,9 @@
 
 Este es el repositorio para el proyecto del servidor API rest usando Django Rest Framework.
 
+> [!IMPORTANT]
+> Para implementar la autenticación y gestión de usuario es necesario volver a clonar el repositorio, iniciar un nuevo entorno virtual de Python y eliminar la base de datos anteriormente creada.
+
 ## Descripción
 
 El proyecto desarrollado consiste en una plataforma web denominada EduWork, orientada a estudiantes universitarios que buscan oportunidades laborales, prácticas profesionales y vacantes de medio tiempo.

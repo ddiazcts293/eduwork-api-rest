@@ -38,9 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'api_rest',
+    'users',
     'rest_framework',
     'drf_yasg',
 ]
+
+AUTH_USER_MODEL = 'users.EduWorkUser'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
