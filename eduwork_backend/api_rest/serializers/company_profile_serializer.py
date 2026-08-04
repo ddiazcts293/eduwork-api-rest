@@ -1,7 +1,7 @@
 from rest_framework import serializers
-from django.core.validators import RegexValidator
 from ..models import CompanyProfile
 from django.utils import timezone
+from ..validators import phone_number_validator
 
 class CompanyProfileSerializer(serializers.ModelSerializer):
     class Meta:
@@ -9,14 +9,7 @@ class CompanyProfileSerializer(serializers.ModelSerializer):
         fields = '__all__'
         read_only_fields = ['id']
 
-    phone_number = serializers.CharField(
-        validators=[
-            RegexValidator(
-                regex=r'^(\+?\d{1,3}-)?\d{3}-\d{3}-\d{4}$',
-                message="Enter a valid phone number"
-            )
-        ]
-    )
+    phone_number = serializers.CharField(max_length=20, validators=[phone_number_validator])
 
     def validate_establish_year(self, value):
         if value > timezone.now().date().year or value < 578:

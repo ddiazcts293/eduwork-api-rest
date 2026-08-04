@@ -12,7 +12,7 @@ class EduWorkUser(AbstractUser):
         COMPANY = 'COMPANY', 'Company'
 
     role = EnumField(Role, default=Role.STUDENT)
-    email = models.EmailField(unique=True)
+    email = models.EmailField(unique=True, max_length=60)
 
     username = None
     USERNAME_FIELD = 'email'

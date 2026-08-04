@@ -37,5 +37,5 @@ router.register(r'student_skills', StudentSkillViewSet, basename='student_skill'
 router.register(r'universities', UniversityViewSet, basename='university')
 
 urlpatterns = [
-    path('api/v1/', include(router.urls)),
+    path('', include(router.urls)),
 ]
