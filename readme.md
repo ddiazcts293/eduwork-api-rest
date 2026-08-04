@@ -2,7 +2,7 @@
 
 Este es el repositorio para el proyecto del servidor API rest usando Django Rest Framework.
 
-> [!IMPORTANT]
+> [!IMPORTANT] Importante
 > Para implementar la autenticación y gestión de usuario es necesario volver a clonar el repositorio, iniciar un nuevo entorno virtual de Python y eliminar la base de datos anteriormente creada.
 
 ## Descripción

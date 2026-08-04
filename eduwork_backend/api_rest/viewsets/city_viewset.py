@@ -5,3 +5,4 @@ from ..serializers.city_serializer import CitySerializer
 class CityViewSet(viewsets.ModelViewSet):
     queryset = City.objects.all()
     serializer_class = CitySerializer
+    http_method_names = ['get', 'head', 'options']

@@ -5,3 +5,4 @@ from ..serializers.skill_serializer import SkillSerializer
 class SkillViewSet(viewsets.ModelViewSet):
     queryset = Skill.objects.all()
     serializer_class = SkillSerializer
+    http_method_names = ['get', 'head', 'options']

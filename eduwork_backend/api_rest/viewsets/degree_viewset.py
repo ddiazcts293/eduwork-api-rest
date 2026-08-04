@@ -5,3 +5,4 @@ from ..serializers.degree_serializer import DegreeSerializer
 class DegreeViewSet(viewsets.ModelViewSet):
     queryset = Degree.objects.all()
     serializer_class = DegreeSerializer
+    http_method_names = ['get', 'head', 'options']
