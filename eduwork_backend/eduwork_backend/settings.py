@@ -41,9 +41,19 @@ INSTALLED_APPS = [
     'users',
     'rest_framework',
     'drf_yasg',
+    'rest_framework_simplejwt.token_blacklist',
 ]
 
 AUTH_USER_MODEL = 'users.EduWorkUser'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ]
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -109,6 +119,17 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header',
+            'description': "JWT Token. Example: `Bearer eyJhbGciOiJIUzI1NiI...`"
+        }
+    },
+    'USE_SESSION_AUTH': False,
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/

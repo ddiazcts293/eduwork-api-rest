@@ -1,11 +1,13 @@
 from django.shortcuts import render
 from django.contrib.auth import get_user_model
-from rest_framework import generics, status
+from rest_framework import generics, status, serializers
+from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.permissions import AllowAny
-# from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework_simplejwt.tokens import RefreshToken
 from .serializers.company_serializers import CompanyRegistrationSerializer
 from .serializers.student_serializers import StudentRegistrationSerializer
+from .serializers.change_password_serializer import ChangePasswordSerializer
 
 # Create your views here.
 
@@ -22,7 +24,7 @@ class CompanyRegisterView(generics.CreateAPIView):
         user = serializer.save()
 
         # Crea el token JWT para este usuario nuevo
-        #refresh = RefreshToken.for_user(user)
+        refresh = RefreshToken.for_user(user)
 
         # Responde con un mensaje de éxito
         return Response({
@@ -30,8 +32,8 @@ class CompanyRegisterView(generics.CreateAPIView):
             "user_id": user.id,
             "email": user.email,
             "tokens": {
-                #"refresh": str(refresh),
-                #"access": str(refresh.access_token),
+                "refresh": str(refresh),
+                "access": str(refresh.access_token),
             }
         }, status=status.HTTP_201_CREATED)
 
@@ -46,7 +48,7 @@ class StudentRegisterView(generics.CreateAPIView):
         user = serializer.save()
 
         # Crea el token JWT para este usuario nuevo
-        #refresh = RefreshToken.for_user(user)
+        refresh = RefreshToken.for_user(user)
 
         # Responde con un mensaje de éxito
         return Response({
@@ -54,7 +56,41 @@ class StudentRegisterView(generics.CreateAPIView):
             "user_id": user.id,
             "email": user.email,
             "tokens": {
-                #"refresh": str(refresh),
-                #"access": str(refresh.access_token),
+                "refresh": str(refresh),
+                "access": str(refresh.access_token),
             }
         }, status=status.HTTP_201_CREATED)
+
+class LogoutView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request):
+        try:
+            refresh_token = request.data['refresh']
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+            return Response(
+                {'message': 'Logout successfully'},
+                status=status.HTTP_205_RESET_CONTENT)
+        except Exception:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+class ChangePasswordView(generics.UpdateAPIView):
+    serializer_class = ChangePasswordSerializer
+    permission_classes = (IsAuthenticated,)
+    http_method_names = ['put']
+
+    def update(self, request, *args, **kwargs):
+        user = self.request.user
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        # Verifica la contraseña actual
+        if not user.check_password(serializer.validated_data.get("old_password")):
+            return Response({"message": "Wrong password"}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Establece la nueva contraseña
+        user.set_password(serializer.validated_data.get("new_password"))
+        user.save()
+
+        return Response({"message": "Password changed successfully"}, status=status.HTTP_200_OK)
