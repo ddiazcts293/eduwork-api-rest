@@ -24,12 +24,12 @@ class JobType(models.Model):
 
 class Degree(models.Model):
     class DegreeType(models.TextChoices):
-        DOCTORATE = 'D', 'DOCTORATE'
-        MASTER = 'M', 'MASTER'
-        POSTGRADUATE = 'P', 'POSTGRADUATE'
-        ENGINEERING = 'E', 'ENGINEERING'
-        BACHELOR = 'B', 'BACHELOR'
-        TECHNICAL = 'T', 'TECHNICAL'
+        DOCTORATE = 'DOCTORATE', 'Doctorate'
+        MASTER = 'MASTER', 'Master'
+        POSTGRADUATE = 'POSTGRADUATE', 'Postgraduate'
+        ENGINEERING = 'ENGINEERING', 'Engineering'
+        BACHELOR = 'BACHELOR', 'Bachelor'
+        TECHNICAL = 'TECHNICAL', 'Technical'
     name = models.CharField(max_length=60, null=False, blank=False, unique=True)
     type = EnumField(DegreeType, null=False, blank=False)
 
@@ -38,9 +38,9 @@ class Degree(models.Model):
 
 class Skill(models.Model):
     class SkillType(models.TextChoices):
-        SOFT = 'S', 'SOFT'
-        HARD = 'H', 'HARD'
-        LANGUAGE = 'L', 'LANGUAGE'
+        SOFT = 'SOFT', 'Soft'
+        HARD = 'HARD', 'Hard'
+        LANGUAGE = 'LANGUAGE', 'Language'
     name = models.CharField(max_length=60, null=False, blank=False, unique=True)
     type = EnumField(SkillType, null=False, blank=False)
 
@@ -56,35 +56,35 @@ class City(models.Model):
 
 class StudentProfile(models.Model):
     class GenderType(models.TextChoices):
-        MALE = 'M', 'MALE'
-        FEMALE = 'F', 'FEMALE'
-        NON_BINARY = 'N', 'NON_BINARY'
+        MALE = 'MALE', 'Male'
+        FEMALE = 'FEMALE', 'Female'
+        NON_BINARY = 'NON_BINARY', 'NonBinary'
 
     user = models.OneToOneField(EduWorkUser, on_delete=models.CASCADE, related_name='student_profile')
     first_name = models.CharField(max_length=60, null=False, blank=False)
     last_name = models.CharField(max_length=60, null=False, blank=False)
     biografy = models.TextField(max_length=500, null=True, blank=True)
-    gender = EnumField(GenderType, null=False, blank=False)
+    gender = EnumField(GenderType, null=True, blank=True)
     date_of_birth = models.DateField(null=False, blank=False)
     email_address = models.EmailField(max_length=60, null=False, blank=False, unique=True)
     phone_number = models.CharField(max_length=20, null=False, blank=False, unique=True)
-    city = models.ForeignKey(City, on_delete=models.CASCADE, null=False, blank=False)
+    city = models.ForeignKey(City, on_delete=models.RESTRICT, null=False, blank=False)
     registered_on = models.DateTimeField(auto_now_add=True, null=False, blank=False)
 
     def __str__(self) -> str:
-            return f"{self.first_name} {self.last_name}"
+        return f"{self.first_name} {self.last_name}"
 
 class CompanyProfile(models.Model):
     user = models.OneToOneField(EduWorkUser, on_delete=models.CASCADE, related_name='company_profile')
     name = models.CharField(max_length=60, null=False, blank=False)
     biography = models.TextField(max_length=500, null=True, blank=True)
-    sector = models.ForeignKey(CompanySector, on_delete=models.CASCADE, null=False, blank=False)
+    sector = models.ForeignKey(CompanySector, on_delete=models.RESTRICT, null=False, blank=False)
     email_address = models.EmailField(max_length=60, null=False, blank=False, unique=True)
     phone_number = models.CharField(max_length=20, null=False, blank=False, unique=True)
     address = models.CharField(max_length=200, null=True, blank=True)
     website = models.URLField(max_length=200, null=True, blank=True)
     establish_year = models.IntegerField(null=True, blank=True)
-    city = models.ForeignKey(City, on_delete=models.CASCADE, null=False, blank=False)
+    city = models.ForeignKey(City, on_delete=models.RESTRICT, null=False, blank=False)
     registered_on = models.DateTimeField(auto_now_add=True, null=False, blank=False)
 
     def __str__(self) -> str:
@@ -99,15 +99,15 @@ class University(models.Model):
 
 class Career(models.Model):
     class StatusType(models.TextChoices):
-        INTERNSHIP = 'I', 'INTERNSHIP'
-        COMPLETED = 'C', 'COMPLETED'
-        GRADUATED = 'G', 'GRADUATED'
-        DEGREE_IN_PROGRESS = 'D', 'DEGREE_IN_PROGRESS'
-        INCOMPLETE = 'U', 'INCOMPLETE'
+        INTERNSHIP = 'INTERNSHIP', 'Internship'
+        COMPLETED = 'COMPLETED', 'Completed'
+        GRADUATED = 'GRADUATED', 'Graduated'
+        DEGREE_IN_PROGRESS = 'DEGREE_IN_PROGRESS', 'DegreeInProgress'
+        INCOMPLETE = 'INCOMPLETE', 'Incomplete'
     class TermType(models.TextChoices):
-        SEMESTER = 'S', 'SEMESTER'
-        FOUR_MONTH_TERM = 'F', 'FOUR_MONTH_TERM'
-        OPEN = 'O', 'OPEN'
+        SEMESTER = 'SEMESTER', 'Semester'
+        FOUR_MONTH_TERM = 'FOUR_MONTH_TERM', 'FourMonthTerm'
+        OPEN = 'OPEN', 'Open'
     student = models.ForeignKey(StudentProfile, on_delete=models.CASCADE, null=False, blank=False)
     university = models.ForeignKey(University, on_delete=models.CASCADE, null=False, blank=False)
     degree = models.ForeignKey(Degree, on_delete=models.CASCADE, null=False, blank=False)
@@ -121,16 +121,16 @@ class Career(models.Model):
 
 class Job(models.Model):
     class SalaryPeriodType(models.TextChoices):
-        HOURLY = 'H', 'HOURLY'
-        DAILY = 'D', 'DAILY'
-        WEEKLY = 'W', 'WEEKLY'
-        MONTHLY = 'M', 'MONTHLY'
-        YEARLY = 'Y', 'YEARLY'
-        PER_PROJECT = 'P', 'PER_PROJECT'
+        HOURLY = 'HOURLY', 'Hourly'
+        DAILY = 'DAILY', 'Daily'
+        WEEKLY = 'WEEKLY', 'Weekly'
+        MONTHLY = 'MONTHLY', 'Monthly'
+        YEARLY = 'YEARLY', 'Yearly'
+        PER_PROJECT = 'PER_PROJECT', 'PerProject'
     class WorkplaceType(models.TextChoices):
-        ON_SITE = 'O', 'ON_SITE'
-        HYBRID = 'H', 'HYBRID'
-        REMOTE = 'R', 'REMOTE'
+        ON_SITE = 'ON_SITE', 'OnSite'
+        HYBRID = 'HYBRID', 'Hybrid'
+        REMOTE = 'REMOTE', 'Remote'
     title = models.CharField(max_length=200, null=False, blank=False)
     company = models.ForeignKey(CompanyProfile, on_delete=models.CASCADE, null=False, blank=False)
     min_salary = models.DecimalField(max_digits=8, decimal_places=2, null=False, blank=False)
@@ -148,13 +148,13 @@ class Job(models.Model):
 
 class Application(models.Model):
     class StatusType(models.TextChoices):
-        APPLIED = 'A', 'APPLIED'
-        UNDER_REVIEW = 'U', 'UNDER_REVIEW'
-        SHORTLISTED = 'S', 'SHORTLISTED'
-        IN_PROGRESS = 'P', 'IN_PROGRESS'
-        HIRED = 'H', 'HIRED'
-        REJECTED = 'R', 'REJECTED'
-        WITHDRAWN = 'W', 'WITHDRAWN'
+        APPLIED = 'APPLIED', 'Applied'
+        UNDER_REVIEW = 'UNDER_REVIEW', 'UnderReview'
+        SHORTLISTED = 'SHORTLISTED', 'Shortlisted'
+        IN_PROGRESS = 'IN_PROGRESS', 'InProgress'
+        HIRED = 'HIRED', 'Hired'
+        REJECTED = 'REJECTED', 'Rejected'
+        WITHDRAWN = 'WITHDRAWN', 'Withdrawn'
     student = models.ForeignKey(StudentProfile, on_delete=models.CASCADE, null=False, blank=False)
     job = models.ForeignKey(Job, on_delete=models.CASCADE, null=False, blank=False)
     status = EnumField(StatusType, null=False, blank=False)
@@ -166,12 +166,12 @@ class Application(models.Model):
 
 class Interview(models.Model):
     class StatusType(models.TextChoices):
-        SCHEDULED = 'S', 'SCHEDULED'
-        PENDING_CONFIRMATION = 'P', 'PENDING_CONFIRMATION'
-        RESCHEDULED = 'R', 'RESCHEDULED'
-        COMPLETED = 'C', 'COMPLETED'
-        CANCELLED = 'X', 'CANCELLED'
-        NO_SHOW = 'N', 'NO_SHOW'
+        SCHEDULED = 'SCHEDULED', 'Scheduled'
+        PENDING_CONFIRMATION = 'PENDING_CONFIRMATION', 'PendingConfirmation'
+        RESCHEDULED = 'RESCHEDULED', 'Rescheduled'
+        COMPLETED = 'COMPLETED', 'Completed'
+        CANCELLED = 'CANCELLED', 'Cancelled'
+        NO_SHOW = 'NO_SHOW', 'NoShow'
     application = models.ForeignKey(Application, on_delete=models.CASCADE, null=False, blank=False)
     scheduled_date = models.DateTimeField(null=False, blank=False)
     address_or_url = models.CharField(max_length=255, null=False, blank=False)
