@@ -9,7 +9,8 @@ from .views import (
     StudentRegisterView,
     LogoutView,
     ChangePasswordView,
-    ChangeEmailView
+    ChangeEmailView,
+    GetMeView,
 )
 
 urlpatterns = [
@@ -21,4 +22,5 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(), name='logout'),
     path('password/change/', ChangePasswordView.as_view(), name='change_password'),
     path('email/change/', ChangeEmailView.as_view(), name='change_email'),
+    path('me/', GetMeView.as_view(), name='change_email'),
 ]

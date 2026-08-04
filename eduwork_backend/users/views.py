@@ -10,6 +10,7 @@ from .serializers.company_serializers import CompanyRegistrationSerializer
 from .serializers.student_serializers import StudentRegistrationSerializer
 from .serializers.change_password_serializer import ChangePasswordSerializer
 from .serializers.change_email_serializer import ChangeEmailSerializer
+from .serializers.user_serializer import UserSerializer
 
 # Create your views here.
 
@@ -114,3 +115,10 @@ class ChangeEmailView(generics.UpdateAPIView):
         user.save()
 
         return Response({'message': 'Email changed successfully'}, status=status.HTTP_200_OK)
+
+class GetMeView(generics.RetrieveAPIView):
+    serializer_class = UserSerializer
+    permission_classes = (IsAuthenticated, )
+
+    def get_object(self):
+        return self.request.user
