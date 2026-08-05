@@ -25,9 +25,10 @@ El objetivo principal de la plataforma es facilitar la conexión entre estudiant
 2. Inicializar un nuevo entorno virtual de Python en el directorio del proyecto `python -m venv .venv` (usar `py` en Windows).
 3. Instalar dependencias `pip install -r requirements.txt`.
 4. Orquestar servicios con Docker `docker compose up -d`.
-6. Aplicar migraciones con `python manage.py migrate`.
+6. Aplicar migraciones con `python manage.py migrate` (dentro del directorio `eduwork_backend`).
 7. Poblar BD con datos iniciales usando `python manage.py loaddata api_rest/fixtures/initial_data.json`.
 8. Crear superusuario con `python manage.py createsuperuser`.
+9. Iniciar servidor web con `python manage.py runserver`.
 
 El sitio es accesible a través del localhost en el puerto 8000; Adminer, puerto 8081.
 
