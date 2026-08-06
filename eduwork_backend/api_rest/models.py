@@ -132,6 +132,7 @@ class Job(models.Model):
         HYBRID = 'HYBRID', 'Hybrid'
         REMOTE = 'REMOTE', 'Remote'
     title = models.CharField(max_length=200, null=False, blank=False)
+    description = models.TextField(null=True, blank=True)
     company = models.ForeignKey(CompanyProfile, on_delete=models.CASCADE, null=False, blank=False)
     min_salary = models.DecimalField(max_digits=8, decimal_places=2, null=False, blank=False)
     max_salary = models.DecimalField(max_digits=8, decimal_places=2, null=False, blank=False)
