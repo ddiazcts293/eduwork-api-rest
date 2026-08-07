@@ -5,8 +5,9 @@ from ..validators import NameValidator, AgeValidator, phone_number_validator
 class StudentProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = StudentProfile
-        fields = '__all__'
-        read_only_fields = ['id']
+        exclude = ['user']
+        read_only_fields = ['id', 'user']
+        depth = 1
 
     first_name = serializers.CharField(max_length=60, validators=[NameValidator()])
     last_name = serializers.CharField(max_length=60, validators=[NameValidator()])
