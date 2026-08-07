@@ -34,6 +34,9 @@ class StudentProfileViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         user = self.request.user
 
+        if not hasattr(user, 'role'):
+            return StudentProfile.objects.none()
+
         if user.role == EduWorkUser.Role.STUDENT:
             return StudentProfile.objects.filter(user=user)
 
