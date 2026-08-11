@@ -3,6 +3,23 @@ from ..models import Job
 from .city_serializer import CitySerializer
 from .company_profile_serializer import CompanyProfileBasicSerializer
 
+class JobBasicSerializer(serializers.ModelSerializer):
+    company_name = serializers.CharField(source='company.name', read_only=True)
+    type_description = serializers.CharField(source='job_type.description', read_only=True)
+    city_name = serializers.CharField(source='city.name', read_only=True)
+
+    class Meta:
+        model = Job
+        fields = [
+            'id',
+            'title',
+            'company_name',
+            'type_description',
+            'workplace_type',
+            'city_name',
+            'is_active',
+        ]
+
 class JobReadSerializer(serializers.ModelSerializer):
     company = CompanyProfileBasicSerializer(read_only=True)
     city = CitySerializer(read_only=True)
