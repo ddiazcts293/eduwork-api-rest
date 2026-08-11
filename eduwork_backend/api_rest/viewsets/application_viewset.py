@@ -6,7 +6,7 @@ from ..serializers.application_serializer import (
     ApplicationReadSerializer,
     ApplicationUpdateSerializer
 )
-from users.permissions import IsCompanyUser, IsStudentUser, IsOwnerStudent
+from users.permissions import IsStudentUser, IsOwnerStudent
 
 class ApplicationViewSet(viewsets.ModelViewSet):
     """
@@ -15,8 +15,6 @@ class ApplicationViewSet(viewsets.ModelViewSet):
     Solo las empresas pueden cambiar el estado de una postulación.
     Tanto empresas como estudiantes pueden consultar y modificar sus postulaciones.
     """
-
-    serializer_class = ApplicationWriteSerializer
 
     def get_serializer_class(self):
         if self.action == 'create':

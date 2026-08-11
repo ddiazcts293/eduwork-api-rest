@@ -24,7 +24,6 @@ class ApplicationWriteSerializer(serializers.ModelSerializer):
     def validate(self, data):
         user = self.context['request'].user
         job = data.get('job')
-        print(f'{user}-{job}')
 
         if hasattr(user, 'student_profile') and job is not None:
             time_limit = timezone.now() - timedelta(days=30)
