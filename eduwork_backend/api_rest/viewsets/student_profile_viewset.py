@@ -1,7 +1,11 @@
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from ..models import StudentProfile
-from ..serializers.student_profile_serializer import StudentProfileSerializer
+from ..serializers.student_profile_serializer import (
+    StudentProfileBasicSerializer,
+    StudentProfileReadSerializer,
+    StudentProfileWriteSerializer
+)
 from users.permissions import IsCompanyUser, IsStudentUser, IsOwnerProfile
 from users.models import EduWorkUser
 
@@ -11,9 +15,16 @@ class StudentProfileViewSet(viewsets.ModelViewSet):
     Solo las empresas pueden consultar todo el listado de estudiantes.
     Solo los estudiantes pueden modificar su información
     """
-    queryset = StudentProfile.objects.all()
-    serializer_class = StudentProfileSerializer
+
     http_method_names = ['get', 'put', 'patch', 'head', 'options']
+
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return StudentProfileBasicSerializer
+        if self.action == 'retrieve':
+            return StudentProfileReadSerializer
+
+        return StudentProfileWriteSerializer
 
     def get_permissions(self):
         if self.action == 'list':
@@ -34,18 +45,14 @@ class StudentProfileViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         user = self.request.user
 
-        if not hasattr(user, 'role'):
-            return StudentProfile.objects.none()
+        if hasattr(user, 'role'):
+            if user.role == EduWorkUser.Role.STUDENT:
+                return StudentProfile.objects.filter(user=user)\
+                    .select_related('city')\
+                    .prefetch_related('studentskill_set__skill')
 
-        if user.role == EduWorkUser.Role.STUDENT:
-            return StudentProfile.objects.filter(user=user)
-
-        if user.role == EduWorkUser.Role.COMPANY:
-            if hasattr(user, 'company_profile'):
-                return StudentProfile.objects.all()
-            return StudentProfile.objects.none()
-
-        if user.role == EduWorkUser.Role.ADMIN:
-            return StudentProfile.objects.all()
+            return StudentProfile.objects.all()\
+                .select_related('city')\
+                .prefetch_related('studentskill_set__skill')
 
         return StudentProfile.objects.none()

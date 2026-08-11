@@ -52,7 +52,7 @@ class City(models.Model):
     state = models.ForeignKey(State, on_delete=models.RESTRICT, null=False, blank=False, related_name='cities')
 
     def __str__(self) -> str:
-            return self.name
+        return f"{self.name}, {self.state.name}"
 
 class StudentProfile(models.Model):
     class GenderType(models.TextChoices):
@@ -70,6 +70,7 @@ class StudentProfile(models.Model):
     phone_number = models.CharField(max_length=20, null=False, blank=False, unique=True)
     city = models.ForeignKey(City, on_delete=models.RESTRICT, null=False, blank=False, related_name='student_profiles')
     registered_on = models.DateTimeField(auto_now_add=True, null=False, blank=False)
+    skills = models.ManyToManyField(Skill, through='StudentSkill', related_name='students')
 
     def __str__(self) -> str:
         return f"{self.first_name} {self.last_name}"
@@ -143,6 +144,7 @@ class Job(models.Model):
     city = models.ForeignKey(City, on_delete=models.CASCADE, null=False, blank=False, related_name='jobs')
     is_active = models.BooleanField(default=True, null=False, blank=False)
     published_on = models.DateTimeField(auto_now_add=True, null=False, blank=False)
+    skills = models.ManyToManyField(Skill, through='JobSkill', related_name='jobs')
 
     def __str__(self) -> str:
             return f"{self.title} ({self.published_on})"
@@ -163,7 +165,7 @@ class Application(models.Model):
     updated_on = models.DateTimeField(auto_now=True, null=False, blank=False)
 
     def __str__(self) -> str:
-            return f"#{self.pk} ({self.created_on})"
+            return f"Application for {self.job.title} created by {self.student}"
 
 class Interview(models.Model):
     class StatusType(models.TextChoices):
@@ -183,11 +185,20 @@ class StudentSkill(models.Model):
     student = models.ForeignKey(StudentProfile, on_delete=models.CASCADE, null=False, blank=False)
     skill = models.ForeignKey(Skill, on_delete=models.CASCADE, null=False, blank=False)
 
+    def __str__(self) -> str:
+        return f"{self.skill.name} for {self.student}"
+
 class JobSkill(models.Model):
     job = models.ForeignKey(Job, on_delete=models.CASCADE, null=False, blank=False)
     skill = models.ForeignKey(Skill, on_delete=models.CASCADE, null=False, blank=False)
+
+    def __str__(self) -> str:
+        return f"{self.skill.name} for {self.job.title}"
 
 class SavedJob(models.Model):
     job = models.ForeignKey(Job, on_delete=models.CASCADE, null=False, blank=False)
     student = models.ForeignKey(StudentProfile, on_delete=models.CASCADE, null=False, blank=False)
     saved_on = models.DateTimeField(auto_now_add=True, null=False, blank=False)
+
+    def __str__(self) -> str:
+        return f"{self.job.title} saved by {self.student} on {self.saved_on}"
