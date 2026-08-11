@@ -6,3 +6,4 @@ class UniversitySerializer(serializers.ModelSerializer):
         model = University
         fields = '__all__'
         read_only_fields = ['id']
+        depth=2

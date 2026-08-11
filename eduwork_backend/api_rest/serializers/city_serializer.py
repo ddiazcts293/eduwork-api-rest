@@ -6,3 +6,4 @@ class CitySerializer(serializers.ModelSerializer):
         model = City
         fields = '__all__'
         read_only_fields = ['id']
+        depth = 1
