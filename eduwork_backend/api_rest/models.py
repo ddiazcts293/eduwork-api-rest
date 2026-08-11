@@ -49,7 +49,7 @@ class Skill(models.Model):
 
 class City(models.Model):
     name = models.CharField(max_length=60, null=False, blank=False, unique=True)
-    state = models.ForeignKey(State, on_delete=models.RESTRICT, null=False, blank=False)
+    state = models.ForeignKey(State, on_delete=models.RESTRICT, null=False, blank=False, related_name='cities')
 
     def __str__(self) -> str:
             return self.name
@@ -68,7 +68,7 @@ class StudentProfile(models.Model):
     date_of_birth = models.DateField(null=False, blank=False)
     email_address = models.EmailField(max_length=60, null=False, blank=False, unique=True)
     phone_number = models.CharField(max_length=20, null=False, blank=False, unique=True)
-    city = models.ForeignKey(City, on_delete=models.RESTRICT, null=False, blank=False)
+    city = models.ForeignKey(City, on_delete=models.RESTRICT, null=False, blank=False, related_name='student_profiles')
     registered_on = models.DateTimeField(auto_now_add=True, null=False, blank=False)
 
     def __str__(self) -> str:
@@ -78,13 +78,13 @@ class CompanyProfile(models.Model):
     user = models.OneToOneField(EduWorkUser, on_delete=models.CASCADE, related_name='company_profile')
     name = models.CharField(max_length=60, null=False, blank=False)
     biography = models.TextField(max_length=500, null=True, blank=True)
-    sector = models.ForeignKey(CompanySector, on_delete=models.RESTRICT, null=False, blank=False)
+    sector = models.ForeignKey(CompanySector, on_delete=models.RESTRICT, null=False, blank=False, related_name='company_profiles')
     email_address = models.EmailField(max_length=60, null=False, blank=False, unique=True)
     phone_number = models.CharField(max_length=20, null=False, blank=False, unique=True)
     address = models.CharField(max_length=200, null=True, blank=True)
     website = models.URLField(max_length=200, null=True, blank=True)
     establish_year = models.IntegerField(null=True, blank=True)
-    city = models.ForeignKey(City, on_delete=models.RESTRICT, null=False, blank=False)
+    city = models.ForeignKey(City, on_delete=models.RESTRICT, null=False, blank=False, related_name='company_profiles')
     registered_on = models.DateTimeField(auto_now_add=True, null=False, blank=False)
 
     def __str__(self) -> str:
@@ -92,7 +92,7 @@ class CompanyProfile(models.Model):
 
 class University(models.Model):
     name = models.CharField(max_length=60, null=False, blank=False)
-    city = models.ForeignKey(City, on_delete=models.CASCADE, null=False, blank=False)
+    city = models.ForeignKey(City, on_delete=models.CASCADE, null=False, blank=False, related_name='universities')
 
     def __str__(self) -> str:
             return self.name
@@ -108,9 +108,9 @@ class Career(models.Model):
         SEMESTER = 'SEMESTER', 'Semester'
         FOUR_MONTH_TERM = 'FOUR_MONTH_TERM', 'FourMonthTerm'
         OPEN = 'OPEN', 'Open'
-    student = models.ForeignKey(StudentProfile, on_delete=models.CASCADE, null=False, blank=False)
-    university = models.ForeignKey(University, on_delete=models.CASCADE, null=False, blank=False)
-    degree = models.ForeignKey(Degree, on_delete=models.CASCADE, null=False, blank=False)
+    student = models.ForeignKey(StudentProfile, on_delete=models.CASCADE, null=False, blank=False, related_name='careers')
+    university = models.ForeignKey(University, on_delete=models.CASCADE, null=False, blank=False, related_name='careers')
+    degree = models.ForeignKey(Degree, on_delete=models.CASCADE, null=False, blank=False, related_name='careers')
     status = EnumField(StatusType, null=False, blank=False)
     term_type = EnumField(TermType, null=False, blank=False)
     starting_date = models.DateField(null=False, blank=False)
@@ -133,14 +133,14 @@ class Job(models.Model):
         REMOTE = 'REMOTE', 'Remote'
     title = models.CharField(max_length=200, null=False, blank=False)
     description = models.TextField(null=True, blank=True)
-    company = models.ForeignKey(CompanyProfile, on_delete=models.CASCADE, null=False, blank=False)
+    company = models.ForeignKey(CompanyProfile, on_delete=models.CASCADE, null=False, blank=False, related_name='jobs')
     min_salary = models.DecimalField(max_digits=8, decimal_places=2, null=False, blank=False)
     max_salary = models.DecimalField(max_digits=8, decimal_places=2, null=False, blank=False)
     salary_period = EnumField(SalaryPeriodType, null=False, blank=False)
     workplace_type = EnumField(WorkplaceType, null=False, blank=False)
-    degree = models.ForeignKey(Degree, on_delete=models.CASCADE, null=False, blank=False)
-    job_type = models.ForeignKey(JobType, on_delete=models.CASCADE, null=False, blank=False)
-    city = models.ForeignKey(City, on_delete=models.CASCADE, null=False, blank=False)
+    degree = models.ForeignKey(Degree, on_delete=models.CASCADE, null=False, blank=False, related_name='jobs')
+    job_type = models.ForeignKey(JobType, on_delete=models.CASCADE, null=False, blank=False, related_name='jobs')
+    city = models.ForeignKey(City, on_delete=models.CASCADE, null=False, blank=False, related_name='jobs')
     is_active = models.BooleanField(default=True, null=False, blank=False)
     published_on = models.DateTimeField(auto_now_add=True, null=False, blank=False)
 
@@ -156,8 +156,8 @@ class Application(models.Model):
         HIRED = 'HIRED', 'Hired'
         REJECTED = 'REJECTED', 'Rejected'
         WITHDRAWN = 'WITHDRAWN', 'Withdrawn'
-    student = models.ForeignKey(StudentProfile, on_delete=models.CASCADE, null=False, blank=False)
-    job = models.ForeignKey(Job, on_delete=models.CASCADE, null=False, blank=False)
+    student = models.ForeignKey(StudentProfile, on_delete=models.CASCADE, null=False, blank=False, related_name='applications')
+    job = models.ForeignKey(Job, on_delete=models.CASCADE, null=False, blank=False, related_name='applications')
     status = EnumField(StatusType, null=False, blank=False)
     created_on = models.DateTimeField(auto_now_add=True, null=False, blank=False)
     updated_on = models.DateTimeField(auto_now=True, null=False, blank=False)
@@ -173,7 +173,7 @@ class Interview(models.Model):
         COMPLETED = 'COMPLETED', 'Completed'
         CANCELLED = 'CANCELLED', 'Cancelled'
         NO_SHOW = 'NO_SHOW', 'NoShow'
-    application = models.ForeignKey(Application, on_delete=models.CASCADE, null=False, blank=False)
+    application = models.ForeignKey(Application, on_delete=models.CASCADE, null=False, blank=False, related_name='interviews')
     scheduled_date = models.DateTimeField(null=False, blank=False)
     address_or_url = models.CharField(max_length=255, null=False, blank=False)
     status = EnumField(StatusType, null=False, blank=False)
