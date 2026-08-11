@@ -1,7 +1,52 @@
 from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
 from ..models import Career
-from ..serializers.career_serializer import CareerSerializer
+from ..serializers.career_serializer import (
+    CareerReadSerializer,
+    CareerWriteSerializer
+)
+from users.permissions import IsStudentUser, IsOwnerStudent
 
 class CareerViewSet(viewsets.ModelViewSet):
-    queryset = Career.objects.all()
-    serializer_class = CareerSerializer
+    def get_serializer_class(self):
+        if self.action in ['list', 'retrieve']:
+            return CareerReadSerializer
+
+        return CareerWriteSerializer
+
+    def get_permissions(self):
+        if self.action in ['list', 'retrieve']:
+            # Permite consultar la información de carreras a usuarios autenticados
+            self.permission_classes = [IsAuthenticated]
+        elif self.action in ['create']:
+            # Permite crear carreras a estudiantes
+            self.permission_classes = [IsStudentUser]
+        elif self.action in ['update', 'partial_update', 'destroy']:
+            # Permite eliminar carreras solo a estudiantes
+            self.permission_classes = [IsStudentUser, IsOwnerStudent]
+        else:
+            # Permite realizar otras acciones a empresas y estudiantes
+            self.permission_classes = [IsStudentUser]
+
+        return [permission() for permission in self.permission_classes]
+
+    def get_queryset(self):
+        user = self.request.user
+
+        if hasattr(user, 'role'):
+            if user.role == 'STUDENT' and hasattr(user, 'student_profile'):
+                return Career.objects.filter(student=user.student_profile)\
+                    .select_related('university')\
+                    .select_related('university__city')\
+                    .select_related('degree')
+
+            return Career.objects.all()\
+                    .select_related('university')\
+                    .select_related('university__city')\
+                    .select_related('degree')
+
+        return Career.objects.none()
+
+    def perform_create(self, serializer):
+        student_profile = self.request.user.student_profile
+        serializer.save(student=student_profile)
