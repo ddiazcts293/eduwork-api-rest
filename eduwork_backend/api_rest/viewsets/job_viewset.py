@@ -1,7 +1,11 @@
 from rest_framework import viewsets
 from rest_framework.permissions import AllowAny
 from ..models import Job
-from ..serializers.job_serializer import JobReadSerializer, JobWriteSerializer
+from ..serializers.job_serializer import (
+    JobReadSerializer,
+    JobWriteSerializer,
+    JobBasicSerializer
+)
 from users.permissions import IsCompanyUser, IsOwnerCompany
 
 class JobViewSet(viewsets.ModelViewSet):
@@ -12,7 +16,9 @@ class JobViewSet(viewsets.ModelViewSet):
     """
 
     def get_serializer_class(self):
-        if self.action in ['list', 'retrieve']:
+        if self.action == 'list':
+            return JobBasicSerializer
+        elif self.action == 'retrieve':
             return JobReadSerializer
 
         return JobWriteSerializer
@@ -35,11 +41,21 @@ class JobViewSet(viewsets.ModelViewSet):
 
         if hasattr(user, 'role') and user.role == 'COMPANY':
             if hasattr(user, 'company_profile'):
-                return Job.objects.filter(company=user.company_profile)
+                return Job.objects.filter(company=user.company_profile)\
+                    .select_related('company')\
+                    .select_related('city')\
+                    .select_related('degree')\
+                    .select_related('job_type')\
+                    .prefetch_related('jobskill_set__skill')
 
             return Job.objects.none()
 
-        return Job.objects.all()
+        return Job.objects.all()\
+            .select_related('company')\
+            .select_related('city')\
+            .select_related('degree')\
+            .select_related('job_type')\
+            .prefetch_related('jobskill_set__skill')
 
     def perform_create(self, serializer):
         # Obtiene el perfil de la empresa directo del usuario que realiza la

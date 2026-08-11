@@ -15,7 +15,7 @@ class ApplicationViewSet(viewsets.ModelViewSet):
     Solo las empresas pueden cambiar el estado de una postulación.
     Tanto empresas como estudiantes pueden consultar y modificar sus postulaciones.
     """
-    queryset = Application.objects.all()
+
     serializer_class = ApplicationWriteSerializer
 
     def get_serializer_class(self):

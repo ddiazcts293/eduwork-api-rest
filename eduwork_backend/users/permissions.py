@@ -42,7 +42,7 @@ class IsOwnerCompany(BasePermission):
         if request.method in ['GET', 'HEAD', 'OPTIONS']:
             return True
 
-        # Verifica si el objeto tiene una referencia al perfil de la empresa
+        # Verifica si el objeto no tiene una referencia al perfil de la empresa
         if not hasattr(request.user, 'company_profile'):
             return False
 
@@ -57,3 +57,16 @@ class IsOwnerProfile(BasePermission):
 
         # Verifica si el usuario del perfil coincide con el del usuario
         return obj.user == request.user
+
+class IsJobSkillOwner(BasePermission):
+    def has_object_permission(self, request, view, obj):
+        # Permite consultar por cualquier usuario
+        if request.method in ['GET', 'HEAD', 'OPTIONS']:
+            return True
+
+        # Verifica si el objeto no tiene una referencia al perfil de la empresa
+        if not hasattr(request.user, 'company_profile'):
+            return False
+
+        # Verifica las relaciones
+        return obj.job.company == request.user.company_profile

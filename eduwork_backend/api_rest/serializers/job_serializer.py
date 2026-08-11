@@ -6,6 +6,7 @@ from .company_profile_serializer import CompanyProfileBasicSerializer
 class JobBasicSerializer(serializers.ModelSerializer):
     company_name = serializers.CharField(source='company.name', read_only=True)
     type_description = serializers.CharField(source='job_type.description', read_only=True)
+    degree_name = serializers.CharField(source='degree.name', read_only=True)
     city_name = serializers.CharField(source='city.name', read_only=True)
 
     class Meta:
@@ -14,6 +15,10 @@ class JobBasicSerializer(serializers.ModelSerializer):
             'id',
             'title',
             'company_name',
+            'min_salary',
+            'max_salary',
+            'salary_period',
+            'degree_name',
             'type_description',
             'workplace_type',
             'city_name',

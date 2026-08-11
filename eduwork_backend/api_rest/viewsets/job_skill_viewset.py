@@ -1,7 +1,43 @@
 from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
 from ..models import JobSkill
-from ..serializers.job_skill_serializer import JobSkillSerializer
+from ..serializers.job_skill_serializer import (
+    JobSkillReadSerializer,
+    JobSkillWriteSerializer
+)
+from users.permissions import IsCompanyUser, IsJobSkillOwner
 
 class JobSkillViewSet(viewsets.ModelViewSet):
     queryset = JobSkill.objects.all()
-    serializer_class = JobSkillSerializer
+    http_method_names = ['get', 'post', 'delete']
+
+    def get_serializer_class(self):
+        if self.action in ['list', 'retrieve']:
+            return JobSkillReadSerializer
+
+        return JobSkillWriteSerializer
+
+    def get_permissions(self):
+        if self.action in ['list', 'retrieve']:
+            self.permission_classes = [IsAuthenticated]
+        elif self.action in ['create', 'update', 'partial_update', 'destroy']:
+            self.permission_classes = [IsCompanyUser, IsJobSkillOwner]
+        else:
+            self.permission_classes = [IsCompanyUser]
+
+        return [permission() for permission in self.permission_classes]
+
+    def get_queryset(self):
+        user = self.request.user
+
+        if hasattr(user, 'role'):
+            if user.role == 'COMPANY' and hasattr(user, 'company_profile'):
+                return JobSkill.objects.filter(job__company=user.company_profile)\
+                    .select_related('job')\
+                    .select_related('skill')
+
+            return JobSkill.objects.all()\
+                .select_related('job')\
+                .select_related('skill')
+
+        return JobSkill.objects.none()
