@@ -1,15 +1,22 @@
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
+from django_filters.rest_framework import DjangoFilterBackend
 from ..models import StudentSkill
 from ..serializers.student_skill_serializer import (
     StudentSkillReadSerializer,
     StudentSkillWriteSerializer
 )
+from ..filters import StudentSkillFilter
 from users.permissions import IsStudentUser, IsOwnerStudent
 
 class StudentSkillViewSet(viewsets.ModelViewSet):
     queryset = StudentSkill.objects.all()
     http_method_names = ['get', 'post', 'delete']
+
+    # Motores de filtrado
+    filter_backends = [DjangoFilterBackend]
+    # Filtrado exacto
+    filterset_class = StudentSkillFilter
 
     def get_serializer_class(self):
         if self.action in ['list', 'retrieve']:

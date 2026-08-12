@@ -32,7 +32,7 @@ class JobViewSet(viewsets.ModelViewSet):
         'skills__name'
     ]
     # Ordenamiento
-    ordering_fields = ['min_salary', 'published_on']
+    ordering_fields = ['published_on', 'min_salary', 'title']
     # Ordenamiento por defecto
     ordering = ['-published_on']
 

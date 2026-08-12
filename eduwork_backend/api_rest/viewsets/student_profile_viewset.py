@@ -1,5 +1,7 @@
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.filters import OrderingFilter
+from django_filters.rest_framework import DjangoFilterBackend
 from ..models import StudentProfile
 from ..serializers.student_profile_serializer import (
     StudentProfileBasicSerializer,
@@ -8,6 +10,7 @@ from ..serializers.student_profile_serializer import (
 )
 from users.permissions import IsCompanyUser, IsStudentUser, IsOwnerProfile
 from users.models import EduWorkUser
+from ..filters import StudentProfileFilter
 
 class StudentProfileViewSet(viewsets.ModelViewSet):
     """
@@ -17,6 +20,15 @@ class StudentProfileViewSet(viewsets.ModelViewSet):
     """
 
     http_method_names = ['get', 'put', 'patch', 'head', 'options']
+
+    # Motores de filtrado
+    filter_backends = [DjangoFilterBackend, OrderingFilter]
+    # Filtrado exacto
+    filterset_class = StudentProfileFilter
+    # Ordenamiento
+    ordering_fields = ['name', 'registered_on', 'date_of_birth']
+    # Ordenamiento por defecto
+    ordering = ['-registered_on']
 
     def get_serializer_class(self):
         if self.action == 'list':

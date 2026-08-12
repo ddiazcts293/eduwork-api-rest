@@ -1,11 +1,14 @@
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.filters import OrderingFilter
+from django_filters.rest_framework import DjangoFilterBackend
 from ..models import Application
 from ..serializers.application_serializer import (
     ApplicationWriteSerializer,
     ApplicationReadSerializer,
     ApplicationUpdateSerializer
 )
+from ..filters import ApplicationFilter
 from users.permissions import IsStudentUser, IsOwnerStudent
 
 class ApplicationViewSet(viewsets.ModelViewSet):
@@ -15,6 +18,15 @@ class ApplicationViewSet(viewsets.ModelViewSet):
     Solo las empresas pueden cambiar el estado de una postulación.
     Tanto empresas como estudiantes pueden consultar y modificar sus postulaciones.
     """
+
+    # Motores de filtrado
+    filter_backends = [DjangoFilterBackend, OrderingFilter]
+    # Filtrado exacto
+    filterset_class = ApplicationFilter
+    # Ordenamiento
+    ordering_fields = ['created_on']
+    # Ordenamiento por defecto
+    ordering = ['-created_on']
 
     def get_serializer_class(self):
         if self.action == 'create':

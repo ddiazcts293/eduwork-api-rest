@@ -1,5 +1,7 @@
 from rest_framework import viewsets
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.filters import SearchFilter, OrderingFilter
+from django_filters.rest_framework import DjangoFilterBackend
 from users.permissions import IsCompanyUser, IsOwnerProfile
 from ..models import CompanyProfile
 from ..serializers.company_profile_serializer import (
@@ -7,6 +9,7 @@ from ..serializers.company_profile_serializer import (
     CompanyProfileReadSerializer,
     CompanyProfileWriteSerializer
 )
+from ..filters import CompanyProfileFilter
 
 class CompanyProfileViewSet(viewsets.ModelViewSet):
     """
@@ -16,6 +19,24 @@ class CompanyProfileViewSet(viewsets.ModelViewSet):
 
     queryset = CompanyProfile.objects.all()
     http_method_names = ['get', 'put', 'patch', 'head', 'options']
+
+    # Motores de filtrado
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    # Filtrado exacto
+    filterset_class = CompanyProfileFilter
+    # Búsqueda de texto
+    search_fields = [
+        'name',
+        'biography',
+        'sector__description',
+        'email_address',
+        'website',
+        'city__name',
+    ]
+    # Ordenamiento
+    ordering_fields = ['name', 'registered_on']
+    # Ordenamiento por defecto
+    ordering = ['name']
 
     def get_serializer_class(self):
         if self.action == 'list':

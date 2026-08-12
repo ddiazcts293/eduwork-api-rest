@@ -1,11 +1,14 @@
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.filters import OrderingFilter
+from django_filters.rest_framework import DjangoFilterBackend
 from ..models import Interview
 from ..serializers.interview_serializer import (
     InterviewReadSerializer,
     InterviewWriteSerializer,
     InterviewUpdateSerializer
 )
+from ..filters import InterviewFilter
 from users.permissions import IsCompanyUser, IsInterviewOwner
 
 class InterviewViewSet(viewsets.ModelViewSet):
@@ -15,7 +18,14 @@ class InterviewViewSet(viewsets.ModelViewSet):
     Tanto empresas como estudiantes pueden consultar sus postulaciones.
     """
 
-    queryset = Interview.objects.all()
+    # Motores de filtrado
+    filter_backends = [DjangoFilterBackend, OrderingFilter]
+    # Filtrado exacto
+    filterset_class = InterviewFilter
+    # Ordenamiento
+    ordering_fields = ['registered_on']
+    # Ordenamiento por defecto
+    ordering = ['-registered_on']
 
     def get_serializer_class(self):
         if self.action == 'create':
