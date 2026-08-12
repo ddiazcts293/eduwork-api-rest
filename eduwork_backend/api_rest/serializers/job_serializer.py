@@ -8,6 +8,7 @@ class JobBasicSerializer(serializers.ModelSerializer):
     type_description = serializers.CharField(source='job_type.description', read_only=True)
     degree_name = serializers.CharField(source='degree.name', read_only=True)
     city_name = serializers.CharField(source='city.name', read_only=True)
+    is_saved = serializers.BooleanField(read_only=True)
 
     class Meta:
         model = Job
@@ -23,11 +24,13 @@ class JobBasicSerializer(serializers.ModelSerializer):
             'workplace_type',
             'city_name',
             'is_active',
+            'is_saved',
         ]
 
 class JobReadSerializer(serializers.ModelSerializer):
     company = CompanyProfileBasicSerializer(read_only=True)
     city = CitySerializer(read_only=True)
+    is_saved = serializers.BooleanField(read_only=True)
 
     class Meta:
         model = Job

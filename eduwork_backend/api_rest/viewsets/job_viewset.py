@@ -2,7 +2,8 @@ from rest_framework import viewsets
 from rest_framework.permissions import AllowAny
 from rest_framework.filters import SearchFilter, OrderingFilter
 from django_filters.rest_framework import DjangoFilterBackend
-from ..models import Job
+from django.db.models import Exists, OuterRef, Value, BooleanField
+from ..models import Job, SavedJob
 from ..serializers.job_serializer import (
     JobReadSerializer,
     JobWriteSerializer,
@@ -59,19 +60,28 @@ class JobViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
+        queryset = Job.objects.all()
 
-        if hasattr(user, 'role') and user.role == 'COMPANY':
-            if hasattr(user, 'company_profile'):
-                return Job.objects.filter(company=user.company_profile)\
-                    .select_related('company')\
-                    .select_related('city')\
-                    .select_related('degree')\
-                    .select_related('job_type')\
-                    .prefetch_related('jobskill_set__skill')
+        if hasattr(user, 'role'):
+            if user.role == 'COMPANY' and hasattr(user, 'company_profile'):
+                queryset = queryset.filter(company=user.company_profile)\
+                    .annotate(is_saved=Value(False, output_field=BooleanField()))
+            elif user.role == 'STUDENT' and hasattr(user, 'student_profile'):
+                saved_subquery = SavedJob.objects.filter(
+                    job=OuterRef('pk'),
+                    student=user.student_profile
+                )
 
-            return Job.objects.none()
+                queryset = queryset.all()\
+                    .annotate(is_saved=Exists(saved_subquery))
+            else:
+                queryset = queryset.all()\
+                    .annotate(is_saved=Value(False, output_field=BooleanField()))
+        else:
+            queryset = queryset.all()\
+                .annotate(is_saved=Value(False, output_field=BooleanField()))
 
-        return Job.objects.all()\
+        return queryset\
             .select_related('company')\
             .select_related('city')\
             .select_related('degree')\
