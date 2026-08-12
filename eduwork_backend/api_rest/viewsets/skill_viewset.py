@@ -4,6 +4,9 @@ from ..models import Skill
 from ..serializers.skill_serializer import SkillSerializer
 
 class SkillViewSet(viewsets.ModelViewSet):
+    """
+    Apartado para consultar las habilidades registradas en el sistema.
+    """
     queryset = Skill.objects.all()
     serializer_class = SkillSerializer
     permission_classes = [AllowAny]

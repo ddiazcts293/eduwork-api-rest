@@ -4,6 +4,10 @@ from ..serializers.saved_job_serializer import SavedJobWriteSerializer, SavedJob
 from users.permissions import IsStudentUser, IsOwnerStudent
 
 class SavedJobViewSet(viewsets.ModelViewSet):
+    """
+    Apartado para consultar los empleos guardados por los estudiantes.
+    Solo los estudiantes pueden acceder.
+    """
     http_method_names = ['get', 'post', 'delete']
 
     def get_serializer_class(self):

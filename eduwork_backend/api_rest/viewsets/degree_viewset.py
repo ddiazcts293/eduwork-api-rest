@@ -4,6 +4,9 @@ from ..models import Degree
 from ..serializers.degree_serializer import DegreeSerializer
 
 class DegreeViewSet(viewsets.ModelViewSet):
+    """
+    Apartado para consultar las diferentes carreras que un estudiante puede tener.
+    """
     queryset = Degree.objects.all()
     serializer_class = DegreeSerializer
     permission_classes = [AllowAny]

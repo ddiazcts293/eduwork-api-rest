@@ -10,6 +10,9 @@ from ..filters import StudentSkillFilter
 from users.permissions import IsStudentUser, IsOwnerStudent
 
 class StudentSkillViewSet(viewsets.ModelViewSet):
+    """
+    Apartado para consultar las habilidades asociadas a las estudiantes.
+    """
     queryset = StudentSkill.objects.all()
     http_method_names = ['get', 'post', 'delete']
 

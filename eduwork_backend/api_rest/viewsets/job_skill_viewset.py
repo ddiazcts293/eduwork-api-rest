@@ -10,6 +10,9 @@ from ..filters import JobSkillFilter
 from users.permissions import IsCompanyUser, IsJobSkillOwner
 
 class JobSkillViewSet(viewsets.ModelViewSet):
+    """
+    Apartado para consultar las habilidades asociadas a las vacantes.
+    """
     queryset = JobSkill.objects.all()
     http_method_names = ['get', 'post', 'delete']
 

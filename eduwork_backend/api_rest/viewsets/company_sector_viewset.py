@@ -4,6 +4,9 @@ from ..models import CompanySector
 from ..serializers.company_sector_serializer import CompanySectorSerializer
 
 class CompanySectorViewSet(viewsets.ModelViewSet):
+    """
+    Apartado para consultar los sectores de empresas registrados.
+    """
     queryset = CompanySector.objects.all()
     serializer_class = CompanySectorSerializer
     permission_classes = [AllowAny]

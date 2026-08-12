@@ -11,6 +11,12 @@ from ..filters import CareerFilter
 from users.permissions import IsStudentUser, IsOwnerStudent
 
 class CareerViewSet(viewsets.ModelViewSet):
+    """
+    Apartado para consultar la información de las carreras de los estudiantes.
+    Solo los estudiantes pueden crear, modificar y eliminar.
+    Los estudiantes solo pueden ver y modificar las carreras que les pertenecen.
+    Las empresas pueden consultar todos los registros.
+    """
 
     # Motores de filtrado
     filter_backends = [DjangoFilterBackend, OrderingFilter]

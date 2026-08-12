@@ -4,6 +4,9 @@ from ..models import City
 from ..serializers.city_serializer import CitySerializer
 
 class CityViewSet(viewsets.ModelViewSet):
+    """
+    Apartado para consultar las ciudades registradas en el sistema.
+    """
     queryset = City.objects.all()
     serializer_class = CitySerializer
     permission_classes = [AllowAny]
