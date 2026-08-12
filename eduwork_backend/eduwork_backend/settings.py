@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'drf_yasg',
     'rest_framework_simplejwt.token_blacklist',
+    'django_filters',
 ]
 
 AUTH_USER_MODEL = 'users.EduWorkUser'
