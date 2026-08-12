@@ -109,6 +109,15 @@ class JobSkillFilter(django_filters.FilterSet):
             'skill_id',
         ]
 
+class SavedJobFilter(django_filters.FilterSet):
+    job_id = django_filters.NumberFilter(field_name='job__id')
+
+    class Meta:
+        model = SavedJob
+        fields = [
+            'job_id',
+        ]
+
 class StudentSkillFilter(django_filters.FilterSet):
     student_id = django_filters.NumberFilter(field_name='student__id')
     skill_id = django_filters.NumberFilter(field_name='skill__id')

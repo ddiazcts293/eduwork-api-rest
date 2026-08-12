@@ -1,6 +1,8 @@
 from rest_framework import viewsets
+from django_filters.rest_framework import DjangoFilterBackend
 from ..models import SavedJob
 from ..serializers.saved_job_serializer import SavedJobWriteSerializer, SavedJobReadSerializer
+from ..filters import SavedJobFilter
 from users.permissions import IsStudentUser, IsOwnerStudent
 
 class SavedJobViewSet(viewsets.ModelViewSet):
@@ -9,6 +11,11 @@ class SavedJobViewSet(viewsets.ModelViewSet):
     Solo los estudiantes pueden acceder.
     """
     http_method_names = ['get', 'post', 'delete']
+
+    # Motores de filtrado
+    filter_backends = [DjangoFilterBackend]
+    # Filtrado exacto
+    filterset_class = SavedJobFilter
 
     def get_serializer_class(self):
         if self.action in ['list', 'retrieve']:
