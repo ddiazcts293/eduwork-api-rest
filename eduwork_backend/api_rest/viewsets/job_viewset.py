@@ -1,11 +1,14 @@
 from rest_framework import viewsets
 from rest_framework.permissions import AllowAny
+from rest_framework.filters import SearchFilter, OrderingFilter
+from django_filters.rest_framework import DjangoFilterBackend
 from ..models import Job
 from ..serializers.job_serializer import (
     JobReadSerializer,
     JobWriteSerializer,
     JobBasicSerializer
 )
+from ..filters import JobFilter
 from users.permissions import IsCompanyUser, IsOwnerCompany
 
 class JobViewSet(viewsets.ModelViewSet):
@@ -14,6 +17,24 @@ class JobViewSet(viewsets.ModelViewSet):
     Cualquiera puede consultar, pero solo empresas y administradores pueden modificar.
     Las empresas solo pueden consultar sus propias ofertas.
     """
+
+    # Motores de filtrado
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    # Filtrado exacto
+    filterset_class = JobFilter
+    # Búsqueda de texto
+    search_fields = [
+        'title',
+        'description',
+        'company__name',
+        'degree__name',
+        'company__sector__description',
+        'skills__name'
+    ]
+    # Ordenamiento
+    ordering_fields = ['min_salary', 'published_on']
+    # Ordenamiento por defecto
+    ordering = ['-published_on']
 
     def get_serializer_class(self):
         if self.action == 'list':
